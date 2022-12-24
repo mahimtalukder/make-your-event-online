@@ -1,0 +1,8 @@
+make-your-event-online-backend/.vs
+make-your-event-online-backend/ApplicationLayer/bin
+make-your-event-online-backend/ApplicationLayer/obj
+make-your-event-online-backend/BLL/bin
+make-your-event-online-backend/BLL/obj
+make-your-event-online-backend/DAL/bin
+make-your-event-online-backend/DAL/obj
+make-your-event-online-backend/ApplicationLayer/Web.config
