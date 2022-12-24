@@ -18,6 +18,7 @@ namespace BLL.DTOs
         public DateTime? ExpDate { get; set; }
         [Required]
         public int UserId { get; set; }
+        public string UserType { get; set; }
 
     }
 }
