@@ -143,8 +143,8 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/deleteservice")]
-        [HttpPost]
+        [Route("api/organizer/deleteservice/{id}")]
+        [HttpGet]
         [OrganizationLogin]
         public HttpResponseMessage DeleteService(int Id)
         {
@@ -159,6 +159,36 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+        [Route("api/organizer/gettotalrevenue/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage GetTotalRevenue(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.GetTotalRevenue(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
 
+        [Route("api/organizer/gettotalpending/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage GetTotalPending(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.GetTotalPending(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
     }
 }

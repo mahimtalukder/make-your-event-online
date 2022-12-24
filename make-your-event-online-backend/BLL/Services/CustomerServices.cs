@@ -19,6 +19,7 @@ namespace BLL.Services
                 c.CreateMap<Customer, CustomerDTO>();
             });
             var mapper = new Mapper(config);
+
             return mapper.Map<List<CustomerDTO>>(data);
         }
 

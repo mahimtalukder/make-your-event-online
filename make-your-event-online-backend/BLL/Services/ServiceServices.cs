@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace BLL.Services
 {
@@ -46,19 +47,63 @@ namespace BLL.Services
 
         public static bool Delete(int id)
         {
-            return DataAccessFactory.ServiceDataAccess().Delete(id);
+            var orderdetail = OrderDetailService.Get();
+            var order = OrderServices.Get();
+
+            var serv = (from od in orderdetail
+                        where od.ServiceId == id
+                        select od).ToList();
+            bool flag = true;
+            foreach (var s in serv)
+            {
+                var or = (from o in order
+                          where o.Id == s.Id
+                          select o).SingleOrDefault();
+                if (or.Status != 4)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                return DataAccessFactory.ServiceDataAccess().Delete(id);
+            }
+            return flag;
         }
 
         public static ServiceDTO Update(ServiceDTO data)
         {
-            var config = new MapperConfiguration(c => {
-                c.CreateMap<ServiceDTO, Service>();
-                c.CreateMap<Service, ServiceDTO>();
-            });
-            var mapper = new Mapper(config);
-            var dbobj = mapper.Map<Service>(data);
-            var ret = DataAccessFactory.ServiceDataAccess().Update(dbobj);
-            return mapper.Map<ServiceDTO>(ret);
+            var orderdetail = OrderDetailService.Get();
+            var order = OrderServices.Get();
+
+            var serv = (from od in orderdetail
+                        where od.ServiceId == data.Id
+                        select od).ToList();
+            bool flag = true;
+            foreach (var s in serv)
+            {
+                var or = (from o in order
+                          where o.Id == s.Id
+                          select o).SingleOrDefault();
+                if (or.Status != 4)
+                {
+                    flag = false;
+                    break;
+                }
+            }
+            if (flag)
+            {
+                var config = new MapperConfiguration(c => {
+                    c.CreateMap<ServiceDTO, Service>();
+                    c.CreateMap<Service, ServiceDTO>();
+                });
+                var mapper = new Mapper(config);
+                var dbobj = mapper.Map<Service>(data);
+                var ret = DataAccessFactory.ServiceDataAccess().Update(dbobj);
+                return mapper.Map<ServiceDTO>(ret);
+            }
+            return null;
         }
 
         public static List<ServiceDTO> GetAllByUser(int Id)

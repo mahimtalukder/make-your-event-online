@@ -16,6 +16,8 @@ namespace BLL.DTOs
         [Required]
         public int OrderId { get; set; }
         [Required]
-        public int Price { get; set; }
+        public double Price { get; set; }
+        [Required]
+        public int Status { get; set; }
     }
 }

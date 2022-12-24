@@ -182,10 +182,52 @@ namespace BLL.Services
             return false;
         }
 
-        /*public static Dictionary<String, int> OrderStatistics(int Id)
+        public static double GetTotalRevenue(int id)
         {
-            var user = Get(Id);
-            
-        }*/
+            var serv = ServiceServices.Get();
+            var orgServ = (from s in serv
+                           where s.OrganizerId == id
+                           select s).ToList();
+            if (orgServ.Count > 0)
+            {
+                var orderDetail = OrderDetailService.Get();
+                var detail = (from org in orgServ
+                              from od in orderDetail
+                              where od.ServiceId == org.Id && od.Status == 4
+                              select od.Price).ToArray();
+                if(detail.Length>0)
+                {
+                    return detail.Sum();
+                }
+            }
+            return 0;
+        }
+
+        public static List<OrderDetailDTO> GetTotalPending(int id)
+        {
+            var services = ServiceServices.Get();
+            var details = OrderDetailService.Get();
+            var det = (from s in services
+                       where s.OrganizerId == id
+                       from d in details
+                       where d.ServiceId == s.Id && d.Status == 1
+                       select d).ToList();
+            if (det.Count > 0)
+            {
+                object[,] array = new object[det.Count, 3];
+                var count = 0;
+                foreach (var item in det)
+                {
+                    var service = ServiceServices.Get(item.ServiceId);
+                    var order = OrderServices.Get(item.OrderId);
+                    array[count, 0] = det;
+                    array[count, 1] = order;
+                    array[count, 2] = det;
+                    count++;
+                }
+                return det;
+            }
+            return null;
+        }
     }
 }

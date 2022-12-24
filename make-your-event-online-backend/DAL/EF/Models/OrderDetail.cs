@@ -20,6 +20,8 @@ namespace DAL.EF.Models
         public int OrderId { get; set; }
         [Required]
         public double Price { get; set; }
+        [Required]
+        public int Status { get; set; }
 
         public virtual Service Service { get; set; }
         public virtual Order Order { get; set; }

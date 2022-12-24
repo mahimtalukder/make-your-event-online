@@ -87,6 +87,14 @@
     <Compile Include="Migrations\202212241106149_orderDetailUpdate.designer.cs">
       <DependentUpon>202212241106149_orderDetailUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212241326005_StatusUpdate.cs" />
+    <Compile Include="Migrations\202212241326005_StatusUpdate.designer.cs">
+      <DependentUpon>202212241326005_StatusUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212241607388_tokenUpdate.cs" />
+    <Compile Include="Migrations\202212241607388_tokenUpdate.designer.cs">
+      <DependentUpon>202212241607388_tokenUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo\ActionListRepo.cs" />
@@ -123,6 +131,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212241106149_orderDetailUpdate.resx">
       <DependentUpon>202212241106149_orderDetailUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212241326005_StatusUpdate.resx">
+      <DependentUpon>202212241326005_StatusUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212241607388_tokenUpdate.resx">
+      <DependentUpon>202212241607388_tokenUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

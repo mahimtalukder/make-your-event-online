@@ -17,8 +17,6 @@ namespace DAL.EF.Models
         [Required]
         public DateTime OrderDate { get; set; }
         [Required]
-        public int Status { get; set; }
-        [Required]
         public DateTime DeliveryDate { get; set; }
         [ForeignKey("Customer")]
         public int CustomerId { get; set; }

@@ -20,6 +20,8 @@ namespace DAL.EF.Models
         [Required]
         [ForeignKey("User")]
         public int UserId { get; set; }
+        [Required]
+        public string UserType { get; set; }
         public virtual User User { get; set; }
     }
 }

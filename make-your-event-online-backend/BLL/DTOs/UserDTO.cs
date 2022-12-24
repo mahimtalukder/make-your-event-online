@@ -19,5 +19,6 @@ namespace BLL.DTOs
         [Required]
         [StringLength(10)]
         public string UserType { get; set; }
+
     }
 }
