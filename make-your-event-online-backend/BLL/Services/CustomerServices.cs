@@ -32,6 +32,18 @@ namespace BLL.Services
             var mapper = new Mapper(config);
             return mapper.Map<CustomerDTO>(data);
         }
+        public static CustomerDTO Getlast()
+        {
+            var data = DataAccessFactory.CustomerDataAccess().Get();
+            var config = new MapperConfiguration(c => {
+                c.CreateMap<Customer, CustomerDTO>();
+            });
+            var mapper = new Mapper(config);
+            var data2= mapper.Map<List<CustomerDTO>>(data);
+            var last= data2.LastOrDefault();
+            return last;    
+            
+        }
 
         public static CustomerDTO Add(CustomerDTO data)
         {
