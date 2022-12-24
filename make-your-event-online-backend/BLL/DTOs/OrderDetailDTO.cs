@@ -15,5 +15,7 @@ namespace BLL.DTOs
         public int ServiceId { get; set; }
         [Required]
         public int OrderId { get; set; }
+        [Required]
+        public int Price { get; set; }
     }
 }

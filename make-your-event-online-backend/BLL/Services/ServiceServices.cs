@@ -67,8 +67,10 @@ namespace BLL.Services
             var ServiceList = (from d in data
                                where d.OrganizerId == Id
                                select d).ToList();
-            return ServiceList;
+            if(ServiceList.Count > 0) return ServiceList;
+            return null;
         }
+
 
     }
 }

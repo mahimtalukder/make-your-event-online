@@ -114,11 +114,11 @@ namespace ApplicationLayer.Controllers
         [Route("api/organizer/getallservice/{id}")]
         [HttpGet]
         [OrganizationLogin]
-        public HttpResponseMessage GetAllServices(int id)
+        public HttpResponseMessage GetAllServices(int Id)
         {
             try
             {
-                var data = OrganizerServices.Get(id);
+                var data = OrganizerServices.Get(Id);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -126,6 +126,39 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        [Route("api/organizer/updateservice")]
+        [HttpPost]
+        [OrganizationLogin]
+        public HttpResponseMessage UpdateService(ServiceDTO obj)
+        {
+            try
+            {
+                var data = ServiceServices.Update(obj);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/organizer/deleteservice")]
+        [HttpPost]
+        [OrganizationLogin]
+        public HttpResponseMessage DeleteService(int Id)
+        {
+            try
+            {
+                var data = ServiceServices.Delete(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
 
     }
 }

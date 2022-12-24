@@ -18,6 +18,8 @@ namespace DAL.EF.Models
         [Required]
         [ForeignKey("Order")]
         public int OrderId { get; set; }
+        [Required]
+        public double Price { get; set; }
 
         public virtual Service Service { get; set; }
         public virtual Order Order { get; set; }
