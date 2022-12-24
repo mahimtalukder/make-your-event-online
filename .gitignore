@@ -1,8 +1,36 @@
-make-your-event-online-backend/.vs
-make-your-event-online-backend/ApplicationLayer/bin
-make-your-event-online-backend/ApplicationLayer/obj
-make-your-event-online-backend/BLL/bin
-make-your-event-online-backend/BLL/obj
-make-your-event-online-backend/DAL/bin
-make-your-event-online-backend/DAL/obj
-make-your-event-online-backend/ApplicationLayer/Web.config
+/make-your-event-online-backend/.vs
+/make-your-event-online-backend/ApplicationLayer/bin
+/make-your-event-online-backend/ApplicationLayer/obj
+/make-your-event-online-backend/BLL/bin
+/make-your-event-online-backend/BLL/obj
+/make-your-event-online-backend/DAL/bin
+/make-your-event-online-backend/DAL/obj
+/make-your-event-online-backend/ApplicationLayer/Web.config
+
+
+# dependencies
+/make-your-event-online-admin/node_modules
+/make-your-event-online-admin/.pnp
+
+/make-your-event-online-frontend/node_modules
+/make-your-event-online-frontend/.pnp
+.pnp.js
+
+# testing
+/make-your-event-online-admin/coverage
+/make-your-event-online-frontend/coverage
+
+# production
+/make-your-event-online-admin/build
+/make-your-event-online-frontend/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
