@@ -343,6 +343,10 @@ namespace BLL.Services
         public static int TotalServiceOrders(int id)
         {
             var details = OrderDetailService.SingleService(id);
+            if (details == null)
+            {
+                return 0;
+            }
             return details.Count;
         }
 

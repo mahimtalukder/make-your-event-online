@@ -1,6 +1,55 @@
-import React from "react"
+import { React, useEffect, useState } from 'react'
+import axios from "axios"
+
 
 const Home = () => {
+
+    const AxiosConfig = axios.create({
+        baseURL: 'https://localhost:44335/api',
+    });
+
+    let [serviceList, setServiceList] = useState([])
+
+    const fetchServices = async (organizerId) => {
+        const { data } = await AxiosConfig.get(
+            "user/getallservice"
+        );
+        const services = data;
+        console.log(data);
+        setServiceList(services);
+    };
+
+
+    useEffect(() => {
+        fatchUser()
+        fetchServices(userInfo.UserId)
+    }, [])
+
+    let [link, setLink] = useState("");
+    const getThambnil = (serviceId) => {
+        var url = 'user/getthumbnail/' + serviceId
+        AxiosConfig.get(url).then(res => {
+            setLink(res.data.Source);
+        }).catch(err => {
+            console.log(err)
+            // navigate("/signin");
+        })
+
+        return link
+    }
+
+    let [ordersCount, setOrdersCount] = useState("");
+    const totalOrder = (serviceId) => {
+        var url = 'organizer/serviceordercount/' + serviceId
+        AxiosConfig.get(url).then(res => {
+            setOrdersCount(res.data)
+        }).catch(err => {
+            console.log(err)
+            // navigate("/signin");
+        })
+
+        return ordersCount
+    }
 
     return (
         <div>
@@ -18,7 +67,7 @@ const Home = () => {
                                 <div class="col-6 col-md-4 col-lg-3 col-xl-5col">
                                     <div class="product product-11 text-center">
                                         <figure class="product-media">
-                                            <a href="product.html">
+                                            <a href="#">
                                                 <img src="assets/images/demos/demo-2/products/product-7-1.jpg" alt="Product image" class="product-image" />
                                                 <img src="assets/images/demos/demo-2/products/product-7-2.jpg" alt="Product image" class="product-image-hover" />
                                             </a>
@@ -41,7 +90,7 @@ const Home = () => {
                                             <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
                                         </div>{/* End .product-action */}
                                     </div>{/* End .product */}
-                                </div>{/* End .col-sm-6 col-md-4 col-lg-3 */}
+                                </div>
                             </div>{/* End .row */}
                         </div>{/* End .products */}
                     </div>{/* .End .tab-pane */}

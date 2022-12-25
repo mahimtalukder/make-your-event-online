@@ -9,6 +9,7 @@ import Footer from "../Inc/Footer";
 import Dashboard from "../Organizer/Dashboard";
 import Profile from "../Organizer/ViewProfile";
 import AddService from "../Organizer/AddServices";
+import Services from "../Organizer/ServiceList";
 
 
 function OrganizerLayouts(props) {
@@ -43,6 +44,9 @@ function OrganizerLayouts(props) {
         }
         else if (location.pathname == "/organizer/addservice") {
             return <AddService />;
+        }
+        else if (location.pathname == "/organizer/services") {
+            return <Services />;
         }
     }
 

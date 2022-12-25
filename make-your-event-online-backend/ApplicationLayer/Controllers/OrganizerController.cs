@@ -36,7 +36,7 @@ namespace ApplicationLayer.Controllers
 
         [Route("api/organizer/get")]
         [HttpGet]
-        [OrganizationLogin]
+        [AdminLogin]
         public HttpResponseMessage Get()
         {
             try

@@ -37,6 +37,11 @@ const router = createBrowserRouter(
       path: "/organizer/addService",
       element: <OrganizerLayout />,
 
+    },
+    {
+      path: "/organizer/services",
+      element: <OrganizerLayout />,
+
     }
   ]);
 
