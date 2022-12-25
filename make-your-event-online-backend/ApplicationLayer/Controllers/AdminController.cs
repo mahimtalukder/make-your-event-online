@@ -2,19 +2,25 @@
 using BLL.DTOs;
 using BLL.Email;
 using BLL.Services;
+using iTextSharp.text.pdf;
+using iTextSharp.text;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Net.Http.Headers;
+using System.Web.Hosting;
 
 namespace ApplicationLayer.Controllers
 {
     [EnableCors("*", "*", "*")]
     public class AdminController : ApiController
     {
+
         [Route("api/Admin/add")]
         [HttpPost]
         public HttpResponseMessage Add(UserAdminDTO User)
@@ -96,7 +102,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-
+        //dashbord
         //customar list
 
         [Route("api/Admin/AllCustomer")]
@@ -105,8 +111,44 @@ namespace ApplicationLayer.Controllers
         {
             try
             {
+                var data = CustomerServices.Get();
+                var data2 = data.LastOrDefault();
+                var data3 = data2.Id;
+                return Request.CreateResponse(HttpStatusCode.OK, data3);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/Admin/AllOrganizar")]
+        [HttpGet]
+        public HttpResponseMessage AllOrganizar()
+        {
+            try
+            {
+                var data = OrganizerServices.Get();
+                var data2 = data.LastOrDefault();
+                var data3 = data2.Id;
+                return Request.CreateResponse(HttpStatusCode.OK, data3);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/Admin/AllAccount")]
+        [HttpGet]
+        public HttpResponseMessage AllAccount()
+        {
+            try
+            {
                 var data = UserServices.Get();
-                return Request.CreateResponse(HttpStatusCode.OK, data);
+                var data2 = data.LastOrDefault();
+                var data3 = data2.Id;
+                return Request.CreateResponse(HttpStatusCode.OK, data3);
             }
             catch (Exception ex)
             {
@@ -115,7 +157,7 @@ namespace ApplicationLayer.Controllers
         }
 
 
-
+        //resetpassword
         [Route("api/Admin/userResetPassword/{id}")]
         [HttpGet]
         [AdminLogin]
@@ -169,6 +211,32 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+        /*
+        [Route("api/Admin/userResetPassword/{id}")]
+        [HttpGet]
+        public HttpResponseMessage PrintOrders()
+        {
+            string fileName = "test.pdf";
+
+            Document doc = new Document(PageSize.A4,2,2,2,2);
+            Paragraph paragraph = new Paragraph("Orders");
+
+            
+
+
+            try
+            {
+
+
+                return null;
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        */
 
 
     }
