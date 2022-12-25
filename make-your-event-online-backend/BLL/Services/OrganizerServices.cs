@@ -11,6 +11,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static iTextSharp.text.Font;
 
 namespace BLL.Services
 {
@@ -310,13 +311,14 @@ namespace BLL.Services
             }
             return null;
         }
-
-       /* public static object GenerateReport(int id) // id = organizer id
+        /*
+        public static object GenerateReport(int id) // id = organizer id
         {
             var organizer = OrganizerServices.Get(id);
             var services = ServiceServices.GetAllByUser(id);
             if (services.Count <= 0) return null; 
             var detailsDB = OrderDetailService.AllService(services);
+            if(detailsDB.Count <= 0) return null;
             var orderDB = OrderServices.Get();
             var cutoff = DateTime.Now.Date.AddDays(-7);
             var orders = (from det in detailsDB
@@ -324,20 +326,65 @@ namespace BLL.Services
                           where o.Id == det.OrderId
                           select o).ToList();
             orders.RemoveAll(o => o.OrderDate < cutoff);
+            if(orders.Count <= 0) return null;
             var details = (from o in orders
                            from det in detailsDB
                            where det.OrderId == o.Id
                            select det).ToList();
+            if(details.Count<= 0) return null;
             using(MemoryStream ms = new MemoryStream())
             {
                 Document report = new Document(PageSize.A4, 25, 25, 30, 30);
                 PdfWriter writer = PdfWriter.GetInstance(report, ms);
                 report.Open();
 
-                var title = iTextSharp.text.Chunk
+                Paragraph title = new Paragraph("Organize Your Event Online", new Font(FontFamily.TIMES_ROMAN, 24, Font.BOLD, BaseColor.BLACK));
+                title.SpacingAfter = 20;
+                report.Add(title);
+
+                PdfPTable UserInfo = new PdfPTable(2);
+
+                PdfPCell nameCell = new PdfPCell(new Phrase("Name: " + organizer.Name, new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                nameCell.Border = Rectangle.NO_BORDER;
+                nameCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                nameCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(nameCell);
+
+                PdfPCell dateCell = new PdfPCell(new Phrase("Date: " + DateTime.Now.Date.ToString(), new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                dateCell.Border = Rectangle.NO_BORDER;
+                dateCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                dateCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(dateCell);
+
+                PdfPCell EmailCell = new PdfPCell(new Phrase("Email: " + organizer.Email, new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                EmailCell.Border = Rectangle.NO_BORDER;
+                EmailCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                EmailCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(EmailCell);
+
+                PdfPCell BlankCell = new PdfPCell(new Phrase("\u00a0"));
+                BlankCell.Border = Rectangle.NO_BORDER;
+                BlankCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                BlankCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(BlankCell);
+
+                PdfPCell PhoneCell = new PdfPCell(new Phrase("Email: " + organizer.Phone, new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                EmailCell.Border = Rectangle.NO_BORDER;
+                EmailCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                EmailCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(EmailCell);
+
+                UserInfo.AddCell(BlankCell);
+                report.Add(UserInfo);
+
+                PdfPTable DetailInfo = new PdfPTable(4);
+                PdfPCell Serial = new PdfPCell(new Phrase("Serial", new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                Serial.BackgroundColor = BaseColor.
+                UserInfo.AddCell(Serial);
+
+
             }
 
-            details.RemoveAll(x => x.ServiceId == id);
         }*/
 
         public static int TotalServiceOrders(int id)

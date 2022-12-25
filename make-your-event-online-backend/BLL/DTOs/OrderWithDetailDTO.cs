@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BLL.DTOs
 {
-    internal class OrderWithDetailDTO
+    public class OrderWithDetailDTO
     {
         public virtual List<OrderDetailDTO> OrderDetails { get; set; }
         public OrderWithDetailDTO()

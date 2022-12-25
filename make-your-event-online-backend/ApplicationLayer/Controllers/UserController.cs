@@ -57,6 +57,20 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+        [Route("api/user/getallservices")]
+        [HttpGet]
+        public HttpResponseMessage GetAllServices()
+        {
+            try
+            {
+                var data = ServiceServices.Get();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
 
 
     }
