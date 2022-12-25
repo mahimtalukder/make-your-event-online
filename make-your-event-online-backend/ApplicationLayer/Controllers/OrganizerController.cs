@@ -150,7 +150,7 @@ namespace ApplicationLayer.Controllers
         {
             try
             {
-                var data = OrganizerServices.Get(Id);
+                var data = ServiceServices.GetAllByUser(Id);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -195,7 +195,7 @@ namespace ApplicationLayer.Controllers
         [Route("api/organizer/gettotalrevenue/{id}")]
         [HttpGet]
         [OrganizationLogin]
-        public HttpResponseMessage GetTotalRevenue(int Id)
+        public HttpResponseMessage TotalRevenue(int Id)
         {
             try
             {
@@ -208,14 +208,78 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/gettotalpending/{id}")]
+        [Route("api/organizer/getpendingservices/{id}")]
         [HttpGet]
         [OrganizationLogin]
-        public HttpResponseMessage GetTotalPending(int Id)
+        public HttpResponseMessage PendingServices(int Id)
         {
             try
             {
-                var data = OrganizerServices.GetTotalPending(Id);
+                var data = OrganizerServices.GetPending(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/organizer/getconfirmedservices/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage ConfirmedServices(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.GetConfirmed(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/organizer/getshippingservices/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage ShippingServices(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.GetShipping(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/organizer/getallreviews/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage AllReviews(int Id)
+        {
+            try
+            {
+                var data = ReviewServices.OrganizeReview(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/organizer/getreviewsbyservice/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage ReviewsByService(int Id)
+        {
+            try
+            {
+                var data = ReviewServices.ServiceReviews(Id);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -225,3 +289,5 @@ namespace ApplicationLayer.Controllers
         }
     }
 }
+
+

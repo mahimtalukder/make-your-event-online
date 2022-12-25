@@ -74,5 +74,28 @@ namespace BLL.Services
             return mapper.Map<OrderDetailDTO>(ret);
         }
 
+        public static List<OrderDetailDTO> SingleService(int id)
+        {
+            var AllDetails = OrderDetailService.Get();
+            var DetailByService = (from od in AllDetails
+                                   where od.ServiceId == id
+                                   select od).ToList();
+            if (DetailByService.Count > 0) return DetailByService;
+            return null;
+        }
+
+        public static List<OrderDetailDTO> AllService(List<ServiceDTO> services)
+        {
+            var AllDetails = OrderDetailService.Get();
+            var DetailByService = new List<OrderDetailDTO>();
+            foreach (var Service in services)
+            {
+                var ServiceDetails = SingleService(Service.Id);
+                if (ServiceDetails != null) DetailByService.AddRange(ServiceDetails);
+            }
+            if(DetailByService.Count > 0) return DetailByService;
+            return null;
+        }
+
     }
 }

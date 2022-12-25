@@ -94,5 +94,37 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        [Route("api/customer/searchservices")]
+        [HttpPost]
+        [CustomerLogin]
+        public HttpResponseMessage SearchServices(string q)
+        {
+            try
+            {
+                var data = CustomerServices.SearchService(q);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        [Route("api/customer/placeorder")]
+        [HttpPost]
+        public HttpResponseMessage PlaceOrder([FromBody]CustomerOrderDTO order)
+        {
+            
+            try
+            {
+                var result = CustomerOrderService.NewOrder(order);
+                return Request.CreateResponse(HttpStatusCode.OK, "Order Placed!");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+        
     }
 }

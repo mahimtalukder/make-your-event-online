@@ -45,12 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="DTOs\MailDataDTO.cs" />
+    <Compile Include="Email\MailServer.cs" />
     <Compile Include="DTOs\ActionLIstDTO.cs" />
     <Compile Include="DTOs\AdminDTO.cs" />
     <Compile Include="DTOs\CategoryDTO.cs" />
     <Compile Include="DTOs\CategoryWithServiceDTO.cs" />
     <Compile Include="DTOs\CustomerDTO.cs" />
+    <Compile Include="DTOs\CustomerOrderDTO.cs" />
     <Compile Include="DTOs\LoginDTO.cs" />
     <Compile Include="DTOs\ServiceCatalogDTO.cs" />
     <Compile Include="DTOs\ServiceDTO.cs" />
@@ -68,12 +70,15 @@
     <Compile Include="DTOs\TokenDTO.cs" />
     <Compile Include="DTOs\UserDTO.cs" />
     <Compile Include="DTOs\UserOrganizerDTO.cs" />
+    <Compile Include="Email\SendMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AuthServices.cs" />
     <Compile Include="Services\CategoryServices.cs" />
+    <Compile Include="Services\CustomerOrderService.cs" />
     <Compile Include="Services\CustomerServices.cs" />
     <Compile Include="Services\ActionListServices.cs" />
     <Compile Include="Services\AdminServices.cs" />
+    <Compile Include="Services\EmailSevices.cs" />
     <Compile Include="Services\LocationServices.cs" />
     <Compile Include="Services\OrderDetailService.cs" />
     <Compile Include="Services\OrganizingAreaServices.cs" />

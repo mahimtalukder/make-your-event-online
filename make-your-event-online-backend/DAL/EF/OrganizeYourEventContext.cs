@@ -26,7 +26,7 @@ namespace DAL.EF
         public DbSet<ServiceCatalog> ServiceCatalogs { get; set; }
         public DbSet<ShippingAddress> ShippingAddresses { get; set; }
         public DbSet<Token> Tokens { get; set; }
-     
+
 
     }
 }
