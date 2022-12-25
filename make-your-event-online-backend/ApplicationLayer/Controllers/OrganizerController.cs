@@ -1,6 +1,7 @@
 ﻿using ApplicationLayer.Auth;
 using BLL.DTOs;
 using BLL.Services;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -100,39 +101,25 @@ namespace ApplicationLayer.Controllers
         [Route("api/organizer/addservice")]
         [HttpPost]
         [OrganizationLogin]
-        public HttpResponseMessage AddService(ServiceDTO obj, HttpPostedFileBase Image)
+        public HttpResponseMessage AddService(ServiceDTO info)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    if (Image != null)
+                    var data = ServiceServices.Add(info);
+                    var db_path = "https://localhost:44335/Images/default.jpg";
+                    var catalog = new ServiceCatalogDTO()
                     {
-                        var data = ServiceServices.Add(obj);
+                        ServiceId = data.Id,
+                        Source = db_path,
+                        IsThumbnail = true,
 
+                    };
+                    var image = ServiceCatalogServices.Add(catalog);
+                    data.ThumbnailId = image.Id;
 
-
-
-                        var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/");
-                        if (!Directory.Exists(path))
-                        {
-                            Directory.CreateDirectory(path);
-                        }
-
-                        Image.SaveAs(path + Path.GetFileName(Image.FileName));
-                        var db_path = "https://localhost:44335/Images/" + Image.FileName;
-
-                        var catalog = new ServiceCatalogDTO()
-                        {
-                            ServiceId = data.Id,
-                            Source = db_path,
-                            IsThumbnail= true,
-                            
-                        };
-
-                        return Request.CreateResponse(HttpStatusCode.OK, data);
-
-                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, data);
                 }
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Error");
 

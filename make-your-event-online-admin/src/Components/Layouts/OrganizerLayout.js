@@ -8,6 +8,7 @@ import Topbar from "../Inc/OrganizerTopbar"
 import Footer from "../Inc/Footer";
 import Dashboard from "../Organizer/Dashboard";
 import Profile from "../Organizer/ViewProfile";
+import AddService from "../Organizer/AddServices";
 
 
 function OrganizerLayouts(props) {
@@ -28,19 +29,20 @@ function OrganizerLayouts(props) {
         var url = 'organizer/get/' + data.UserId
         AxiosConfig.get(url).then(res => {
         }).catch(err => {
-            console.log(err)
             navigate("/signin");
         })
     }, [])
 
 
     const component = () => {
-        console.log(location)
         if (location.pathname == "/organizer/dashboard") {
             return <Dashboard />;
         }
         else if (location.pathname == "/organizer/profile") {
             return <Profile />;
+        }
+        else if (location.pathname == "/organizer/addservice") {
+            return <AddService />;
         }
     }
 

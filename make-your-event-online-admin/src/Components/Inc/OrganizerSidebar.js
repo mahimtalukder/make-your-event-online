@@ -92,13 +92,13 @@ const OrganizerSidebar = () => {
                             </a>
                         </li>
 
-                        <li className="nav-item nav-category">Director</li>
+                        <li className="nav-item nav-category">Organizer</li>
 
                         <li className="nav-item">
-                            <Link to="/admin/createDirector" className="nav-link">
+                            <Link to="/organizer/addservice" className="nav-link">
                                 <i className="link-icon" data-feather="box"></i>
                                 <span className="link-title">
-                                    Create Director Account
+                                    Add Services
                                 </span>
                             </Link>
                         </li>
