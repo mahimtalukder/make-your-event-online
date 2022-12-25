@@ -88,6 +88,21 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+        [Route("api/user/getsingleservice/{id}")]
+        [HttpGet]
+        public HttpResponseMessage GetSingleService(int id)
+        {
+            try
+            {
+                var data = ServiceServices.Get(id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
 
     }
 }
