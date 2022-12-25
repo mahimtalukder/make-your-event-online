@@ -69,5 +69,30 @@ namespace BLL.Services
         {
             return DataAccessFactory.ReviewDataAccess().Delete(id);
         }
+
+        public static List<ReviewDTO> OrganizeReview(int id)
+        {
+            var AllReviews = ReviewServices.Get();
+            var services = ServiceServices.GetAllByUser(id);
+            var orderdetails = OrderDetailService.AllService(services);
+            var reviewList = (from R in AllReviews
+                              from Od in orderdetails
+                              where R.Id== Od.Id
+                              select R).ToList();
+            if (reviewList.Count > 0) return reviewList;
+            return null;
+        }
+
+        public static List<ReviewDTO> ServiceReviews(int id)
+        {
+            var AllReviews = ReviewServices.Get();
+            var orderdetails = OrderDetailService.SingleService(id);
+            var reviewList = (from R in AllReviews
+                              from Od in orderdetails
+                              where R.Id == Od.Id
+                              select R).ToList();
+            if (reviewList.Count > 0) return reviewList;
+            return null;
+        }
     }
 }

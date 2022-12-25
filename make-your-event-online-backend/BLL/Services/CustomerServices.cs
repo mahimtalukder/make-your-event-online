@@ -4,6 +4,7 @@ using DAL;
 using DAL.EF.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -72,6 +73,24 @@ namespace BLL.Services
             var dbobj = mapper.Map<Customer>(data);
             var ret = DataAccessFactory.CustomerDataAccess().Update(dbobj);
             return mapper.Map<CustomerDTO>(ret);
+        }
+
+        public static List<ServiceDTO> SearchService(string text)
+        {
+            var ServicesList = ServiceServices.Get();
+            string[] textQuery = Array.ConvertAll(text.Split(new char[] { ' ', '-' }), d => d.ToLower());
+            var result = new List<ServiceDTO>();
+            foreach(string query in textQuery)
+            {
+                var list = (from s in ServicesList
+                            where s.Name.ToLower().Contains(query)
+                            select s).ToList();
+                result.AddRange(list);
+            }
+            if(result.Count > 0) {
+                return result.GroupBy(x => x.Id).Select(y => y.First()).ToList();
+            }
+            return null;
         }
 
     }
