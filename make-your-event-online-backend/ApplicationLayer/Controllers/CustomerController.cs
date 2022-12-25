@@ -33,7 +33,7 @@ namespace ApplicationLayer.Controllers
 
         [Route("api/customer/get")]
         [HttpGet]
-        [CustomerLogin]
+        [AdminLogin]
         public HttpResponseMessage Get()
         {
             try
