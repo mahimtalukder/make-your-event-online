@@ -117,13 +117,13 @@ namespace BLL.Services
         }
 
 
-        public static List<ServiceDTO> GetByTitle(string Title)
+       /* public static List<ServiceDTO> GetByTitle(string Title)
         {
             var data = Get();
             var ServiceList = (from d in data
                                where d.Name)
         }
-
+       */
 
     }
 }

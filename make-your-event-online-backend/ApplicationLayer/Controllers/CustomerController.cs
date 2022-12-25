@@ -110,5 +110,19 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+        [Route("api/customer/placeorder")]
+        [HttpPost]
+        public HttpResponseMessage PlaceOrder(List<ServiceDTO> serv, int customerId, int shippingId, DateTime d)
+        {
+            try
+            {
+                var data = serv.ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
     }
 }
