@@ -74,5 +74,16 @@ namespace BLL.Services
             var mapper = new Mapper(cfg);
             return mapper.Map<ServiceCatalogDTO>(data);
         }
+
+        public static ServiceCatalogDTO GetByService(int Id)
+        {
+            var CatalogDB = ServiceCatalogServices.Get();
+            var ReturnObj = (from c in CatalogDB
+                             where c.ServiceId == Id && c.IsThumbnail == true
+                             select c).FirstOrDefault();
+            if (ReturnObj != null) return ReturnObj;
+            return null;
+            
+        }
     }
 }

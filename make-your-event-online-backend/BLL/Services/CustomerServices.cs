@@ -88,7 +88,7 @@ namespace BLL.Services
                 result.AddRange(list);
             }
             if(result.Count > 0) {
-                return result.GroupBy(x => x.Id).Select(y => y.First()).ToList();
+                return result.GroupBy(x => x.Id).Select(y => y.FirstOrDefault()).ToList();
             }
             return null;
         }

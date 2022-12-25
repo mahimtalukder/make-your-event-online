@@ -112,6 +112,7 @@ namespace ApplicationLayer.Controllers
         }
         [Route("api/customer/placeorder")]
         [HttpPost]
+        [CustomerLogin]
         public HttpResponseMessage PlaceOrder([FromBody]CustomerOrderDTO order)
         {
             
@@ -125,6 +126,38 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
-        
+
+        [Route("api/customer/viewallorder/{id}")]
+        [HttpGet]
+        [CustomerLogin]
+        public HttpResponseMessage ViewAllOrder(int ID)
+        {
+            try
+            {
+                var data = CustomerOrderService.AllCustomerOrders(ID);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/customer/vieworderdetails/{id}")]
+        [HttpGet]
+        [CustomerLogin]
+        public HttpResponseMessage ViewOrderDetails(int ID)
+        {
+            try
+            {
+                var data = CustomerOrderService.CustomerOrderDetail(ID);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
     }
 }

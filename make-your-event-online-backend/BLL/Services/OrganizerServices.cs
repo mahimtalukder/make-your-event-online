@@ -2,8 +2,11 @@
 using BLL.DTOs;
 using DAL;
 using DAL.EF.Models;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -308,6 +311,46 @@ namespace BLL.Services
             return null;
         }
 
+       /* public static object GenerateReport(int id) // id = organizer id
+        {
+            var organizer = OrganizerServices.Get(id);
+            var services = ServiceServices.GetAllByUser(id);
+            if (services.Count <= 0) return null; 
+            var detailsDB = OrderDetailService.AllService(services);
+            var orderDB = OrderServices.Get();
+            var cutoff = DateTime.Now.Date.AddDays(-7);
+            var orders = (from det in detailsDB
+                          from o in orderDB
+                          where o.Id == det.OrderId
+                          select o).ToList();
+            orders.RemoveAll(o => o.OrderDate < cutoff);
+            var details = (from o in orders
+                           from det in detailsDB
+                           where det.OrderId == o.Id
+                           select det).ToList();
+            using(MemoryStream ms = new MemoryStream())
+            {
+                Document report = new Document(PageSize.A4, 25, 25, 30, 30);
+                PdfWriter writer = PdfWriter.GetInstance(report, ms);
+                report.Open();
 
+                var title = iTextSharp.text.Chunk
+            }
+
+            details.RemoveAll(x => x.ServiceId == id);
+        }*/
+
+        public static int TotalServiceOrders(int id)
+        {
+            var details = OrderDetailService.SingleService(id);
+            return details.Count;
+        }
+
+        public static List<OrderDetailDTO> AllServiceOrders(int id)
+        {
+            var details = OrderDetailService.SingleService(id);
+            if (details.Count > 0) return details;
+            return null;
+        }
     }
 }

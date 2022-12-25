@@ -99,6 +99,14 @@
     <Compile Include="Migrations\202212251128414_NullableThumbnail.designer.cs">
       <DependentUpon>202212251128414_NullableThumbnail.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212251439096_servicesTableUpdate.cs" />
+    <Compile Include="Migrations\202212251439096_servicesTableUpdate.designer.cs">
+      <DependentUpon>202212251439096_servicesTableUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202212251440237_servicesTableUpdate2.cs" />
+    <Compile Include="Migrations\202212251440237_servicesTableUpdate2.designer.cs">
+      <DependentUpon>202212251440237_servicesTableUpdate2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo\ActionListRepo.cs" />
@@ -144,6 +152,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212251128414_NullableThumbnail.resx">
       <DependentUpon>202212251128414_NullableThumbnail.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212251439096_servicesTableUpdate.resx">
+      <DependentUpon>202212251439096_servicesTableUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212251440237_servicesTableUpdate2.resx">
+      <DependentUpon>202212251440237_servicesTableUpdate2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

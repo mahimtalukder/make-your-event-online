@@ -40,15 +40,6 @@ const Topbar = () => {
                             </a>
                         </div>{/* End .compare-dropdown */}
 
-                        <div class="wishlist">
-                            <a href="wishlist.html" title="Wishlist">
-                                <div class="icon">
-                                    <i class="icon-heart-o"></i>
-                                    <span class="wishlist-count badge">3</span>
-                                </div>
-                                <p>Wishlist</p>
-                            </a>
-                        </div>{/* End .compare-dropdown */}
 
                         <div class="dropdown cart-dropdown">
                             <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -158,59 +149,10 @@ const Topbar = () => {
                                 <li>
                                     <a href="product.html" class="item-lead">Product</a>
                                 </li>
-                                <li>
-                                    <a href="#" class="item-lead">Pages</a>
-
-                                    <ul>
-                                        <li>
-                                            <a href="about.html" class="item-lead">About</a>
-
-                                            <ul>
-                                                <li><a href="about.html">About 01</a></li>
-                                                <li><a href="about-2.html">About 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html" class="item-lead">Contact</a>
-
-                                            <ul>
-                                                <li><a href="contact.html">Contact 01</a></li>
-                                                <li><a href="contact-2.html">Contact 02</a></li>
-                                            </ul>
-                                        </li>
-                                        <li><a href="login.html">Login</a></li>
-                                        <li><a href="faq.html">FAQs</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                        <li><a href="coming-soon.html">Coming Soon</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="elements-list.html" class="item-lead">Elements</a>
-
-                                    <ul>
-                                        <li><a href="elements-products.html">Products</a></li>
-                                        <li><a href="elements-typography.html">Typography</a></li>
-                                        <li><a href="elements-titles.html">Titles</a></li>
-                                        <li><a href="elements-banners.html">Banners</a></li>
-                                        <li><a href="elements-product-category.html">Product Category</a></li>
-                                        <li><a href="elements-video-banners.html">Video Banners</a></li>
-                                        <li><a href="elements-buttons.html">Buttons</a></li>
-                                        <li><a href="elements-accordions.html">Accordions</a></li>
-                                        <li><a href="elements-tabs.html">Tabs</a></li>
-                                        <li><a href="elements-testimonials.html">Testimonials</a></li>
-                                        <li><a href="elements-blog-posts.html">Blog Posts</a></li>
-                                        <li><a href="elements-portfolio.html">Portfolio</a></li>
-                                        <li><a href="elements-cta.html">Call to Action</a></li>
-                                        <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
-                                    </ul>
-                                </li>
                             </ul>{/* End .menu */}
                         </nav>{/* End .main-nav */}
                     </div>{/* End .header-center justify-content-center */}
 
-                    <div class="header-right">
-                        <i class="la la-lightbulb-o"></i><p>Clearance<span class="highlight">&nbsp;Up to 30% Off</span></p>
-                    </div>
                 </div>{/* End .container */}
             </div>{/* End .header-bottom */}
         </header>
