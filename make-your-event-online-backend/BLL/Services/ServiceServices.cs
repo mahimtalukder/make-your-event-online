@@ -48,51 +48,26 @@ namespace BLL.Services
         public static bool Delete(int id)
         {
             var orderdetail = OrderDetailService.Get();
-            var order = OrderServices.Get();
 
-            var serv = (from od in orderdetail
-                        where od.ServiceId == id
-                        select od).ToList();
-            bool flag = true;
-            foreach (var s in serv)
-            {
-                var or = (from o in order
-                          where o.Id == s.Id
-                          select o).SingleOrDefault();
-                if (or.Status != 4)
-                {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag)
+            var serviceOrderDetail = (from od in orderdetail
+                        where od.ServiceId == id && od.Status!= 4
+                        select od).ToList().Count();
+
+            if (serviceOrderDetail == 0)
             {
                 return DataAccessFactory.ServiceDataAccess().Delete(id);
             }
-            return flag;
+            return false;
         }
 
         public static ServiceDTO Update(ServiceDTO data)
         {
             var orderdetail = OrderDetailService.Get();
-            var order = OrderServices.Get();
+            var serviceOrderDetail = (from od in orderdetail
+                                      where od.ServiceId == data.Id && od.Status != 4
+                                      select od).ToList().Count();
 
-            var serv = (from od in orderdetail
-                        where od.ServiceId == data.Id
-                        select od).ToList();
-            bool flag = true;
-            foreach (var s in serv)
-            {
-                var or = (from o in order
-                          where o.Id == s.Id
-                          select o).SingleOrDefault();
-                if (or.Status != 4)
-                {
-                    flag = false;
-                    break;
-                }
-            }
-            if (flag)
+            if (serviceOrderDetail == 0)
             {
                 var config = new MapperConfiguration(c => {
                     c.CreateMap<ServiceDTO, Service>();

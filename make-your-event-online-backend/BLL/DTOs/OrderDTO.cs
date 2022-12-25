@@ -16,8 +16,6 @@ namespace BLL.DTOs
         [Required]
         public DateTime OrderDate { get; set; }
         [Required]
-        public int Status { get; set; }
-        [Required]
         public DateTime DeliveryDate { get; set; }
         public int CustomerId { get; set; }
         public int ShippingId { get; set; }

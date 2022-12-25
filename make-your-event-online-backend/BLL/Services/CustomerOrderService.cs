@@ -1,8 +1,10 @@
 ﻿using BLL.DTOs;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Schema;
@@ -26,7 +28,6 @@ namespace BLL.Services
                 {
                     TotalPrice = Total,
                     OrderDate = System.DateTime.Now.Date,
-                    Status = 1,
                     DeliveryDate = obj.DeliveryDate.Date,
                     CustomerId = obj.CustomerId,
                     ShippingId = obj.ShippingId
@@ -57,6 +58,53 @@ namespace BLL.Services
 
             }
             return false;
+        }
+
+        public static List<OrderDTO> AllCustomerOrders(int Id)
+        {
+            var Orders = OrderServices.Get();
+            var ReturnOrders = (from o in Orders
+                                where o.CustomerId == Id
+                                select o).ToList();
+            if (ReturnOrders.Count > 0) return ReturnOrders;
+            return null;
+        }
+
+        public static object CustomerOrderDetail(int Id)
+        {
+            var Order = OrderServices.Get(Id);
+            var DetailList = OrderDetailService.GetByOrder(Id);
+            var org = OrganizerServices.Get();
+            var serv = ServiceServices.Get();
+            var Services = (from d in DetailList
+                            from s in serv
+                            where s.Id == d.ServiceId
+                            select s).ToList();
+            var Organizer = (from s in Services
+                             from o in org
+                             where o.Id == s.OrganizerId
+                             select new OrganizerDTO()
+                             {      
+                                 Id = o.Id,
+                                 Name= o.Name,
+                                 Email = o.Email,
+                                 Phone = o.Phone,
+                                 Address = o.Address,
+                                 ProfilePicture = o.ProfilePicture
+                             }).ToList();
+            var shippingAddress = ShippingAddressServices.Get(Order.ShippingId);
+            var ReturnObject = new CustomerOrderDTO
+            {
+                TotalPrice = Order.TotalPrice,
+                ShippingAddress = shippingAddress.Address,
+                OrderDate = Order.OrderDate,
+                DeliveryDate = Order.DeliveryDate,
+                Details = DetailList,
+                Organizers = Organizer,
+                Items = Services
+            };
+            return ReturnObject;
+
         }
     }
 }

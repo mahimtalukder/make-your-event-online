@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace BLL.Services
 {
@@ -86,7 +87,6 @@ namespace BLL.Services
 
         public static List<OrderDetailDTO> AllService(List<ServiceDTO> services)
         {
-            var AllDetails = OrderDetailService.Get();
             var DetailByService = new List<OrderDetailDTO>();
             foreach (var Service in services)
             {
@@ -94,6 +94,16 @@ namespace BLL.Services
                 if (ServiceDetails != null) DetailByService.AddRange(ServiceDetails);
             }
             if(DetailByService.Count > 0) return DetailByService;
+            return null;
+        }
+
+        public static List<OrderDetailDTO> GetByOrder(int Id)
+        {
+            var DetailList = OrderDetailService.Get();
+            var ReturnList = (from od in DetailList
+                              where od.OrderId == Id
+                              select od).ToList();
+            if(ReturnList.Count > 0) return ReturnList;
             return null;
         }
 

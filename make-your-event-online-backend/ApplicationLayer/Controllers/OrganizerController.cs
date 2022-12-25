@@ -166,7 +166,6 @@ namespace ApplicationLayer.Controllers
         {
             try
             {
-
                 var data = ServiceServices.Update(obj);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
@@ -191,6 +190,39 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        [Route("api/organizer/serviceordercount/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage ServiceOrderCount(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.TotalServiceOrders(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/organizer/serviceallorders/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage ServiceAllOrders(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.AllServiceOrders(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
 
         [Route("api/organizer/gettotalrevenue/{id}")]
         [HttpGet]
@@ -256,6 +288,8 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+
+
         [Route("api/organizer/getallreviews/{id}")]
         [HttpGet]
         [OrganizationLogin]
@@ -272,6 +306,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+
         [Route("api/organizer/getreviewsbyservice/{id}")]
         [HttpGet]
         [OrganizationLogin]
@@ -287,6 +322,24 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
+        [Route("api/organizer/getreport/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage GetReport(int Id)
+        {
+            try
+            {
+                var data = 1;
+                //var data = OrganizerServices.GenerateReport(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
     }
 }
 
