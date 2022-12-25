@@ -112,17 +112,19 @@ namespace ApplicationLayer.Controllers
         }
         [Route("api/customer/placeorder")]
         [HttpPost]
-        public HttpResponseMessage PlaceOrder(List<ServiceDTO> serv, int customerId, int shippingId, DateTime d)
+        public HttpResponseMessage PlaceOrder([FromBody]CustomerOrderDTO order)
         {
+            
             try
             {
-                var data = serv.ToList();
-                return Request.CreateResponse(HttpStatusCode.OK, data);
+                var result = CustomerOrderService.NewOrder(order);
+                return Request.CreateResponse(HttpStatusCode.OK, "Order Placed!");
             }
             catch (Exception ex)
             {
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+        
     }
 }

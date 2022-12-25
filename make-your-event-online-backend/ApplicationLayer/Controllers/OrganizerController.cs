@@ -159,7 +159,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/totalrevenue/{id}")]
+        [Route("api/organizer/gettotalrevenue/{id}")]
         [HttpGet]
         [OrganizationLogin]
         public HttpResponseMessage TotalRevenue(int Id)
@@ -175,7 +175,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/pendingservices/{id}")]
+        [Route("api/organizer/getpendingservices/{id}")]
         [HttpGet]
         [OrganizationLogin]
         public HttpResponseMessage PendingServices(int Id)
@@ -191,7 +191,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/confirmedservices/{id}")]
+        [Route("api/organizer/getconfirmedservices/{id}")]
         [HttpGet]
         [OrganizationLogin]
         public HttpResponseMessage ConfirmedServices(int Id)
@@ -207,7 +207,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/shippingservices/{id}")]
+        [Route("api/organizer/getshippingservices/{id}")]
         [HttpGet]
         [OrganizationLogin]
         public HttpResponseMessage ShippingServices(int Id)
@@ -223,7 +223,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/allreviews/{id}")]
+        [Route("api/organizer/getallreviews/{id}")]
         [HttpGet]
         [OrganizationLogin]
         public HttpResponseMessage AllReviews(int Id)
@@ -239,7 +239,7 @@ namespace ApplicationLayer.Controllers
             }
         }
 
-        [Route("api/organizer/reviewsbyservice/{id}")]
+        [Route("api/organizer/getreviewsbyservice/{id}")]
         [HttpGet]
         [OrganizationLogin]
         public HttpResponseMessage ReviewsByService(int Id)

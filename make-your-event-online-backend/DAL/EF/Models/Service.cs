@@ -18,8 +18,7 @@ namespace DAL.EF.Models
         public double PricePerUnit { get; set; }
         [Required]
         public DateTime TentativeDeliveryDate { get; set; }
-        [Required]
-        public int ThumbnailId { get; set; }
+        public int? ThumbnailId { get; set; }
         [Required]
         public int Availability { get; set; }
         [Required]
