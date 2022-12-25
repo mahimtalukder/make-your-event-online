@@ -2,8 +2,6 @@
 using BLL.DTOs;
 using BLL.Email;
 using BLL.Services;
-using iTextSharp.text.pdf;
-using iTextSharp.text;
 using System;
 using System.Collections.Generic;
 using System.IO;

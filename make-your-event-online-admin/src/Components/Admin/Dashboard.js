@@ -19,7 +19,7 @@ function Dashboard(props) {
 
     const fetchServices = async (organizerId) => {
         const { data } = await AxiosConfig.get(
-            "organizer/getallservice/" + organizerId
+            "user/getallservices"
         );
         const services = data;
         setServiceList(services);
@@ -27,7 +27,7 @@ function Dashboard(props) {
 
     useEffect(() => {
 
-        var url = 'organizer/get/' + data.UserId
+        var url = 'admin/get/' + data.UserId
         AxiosConfig.get(url).then(res => {
             console.log(res.data)
         }).catch(err => {

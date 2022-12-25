@@ -12,7 +12,7 @@ const Home = () => {
 
     const fetchServices = async () => {
         const { data } = await AxiosConfig.get(
-            "user/getallservices"
+            "user/GetAvailableServices"
         );
         const services = data;
         console.log(data);
@@ -37,18 +37,7 @@ const Home = () => {
         return link
     }
 
-    let [ordersCount, setOrdersCount] = useState("");
-    const totalOrder = (serviceId) => {
-        var url = 'organizer/serviceordercount/' + serviceId
-        AxiosConfig.get(url).then(res => {
-            setOrdersCount(res.data)
-        }).catch(err => {
-            console.log(err)
-            // navigate("/signin");
-        })
 
-        return ordersCount
-    }
 
     return (
         <div>
@@ -74,9 +63,6 @@ const Home = () => {
                                             </figure>{/* End .product-media */}
 
                                             <div class="product-body">
-                                                <div class="product-cat">
-                                                    <a href="#">Lighting</a>
-                                                </div>{/* End .product-cat */}
                                                 <h3 class="product-title"><a href="#">{service.Name}</a></h3>{/* End .product-title */}
                                                 <div class="product-price">
                                                     ${service.PricePerUnit}
