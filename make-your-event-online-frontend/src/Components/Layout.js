@@ -5,6 +5,8 @@ import axios from "axios"
 import Topbar from "./Inc/TopBar"
 import Footer from "./Inc/Footer"
 import Home from "./Home"
+import Dashboard from "./Customer/Dashboard"
+import Login from "./Customer/Login"
 
 function Layout(props) {
     const location = useLocation()
@@ -15,9 +17,12 @@ function Layout(props) {
         if (location.pathname == "/") {
             return <Home />;
         }
-        // else if (location.pathname == "/organizer/profile") {
-        //     return <Profile />;
-        // }
+        else if (location.pathname == "/customer/account") {
+            return <Dashboard />
+        }
+        else if (location.pathname == "/customer/login") {
+            return <Login />
+        }
     }
 
     return (

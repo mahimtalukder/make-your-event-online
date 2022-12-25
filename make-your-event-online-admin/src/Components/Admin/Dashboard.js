@@ -17,7 +17,7 @@ function Dashboard(props) {
         }
     });
 
-    const fetchServices = async (organizerId) => {
+    const fetchServices = async () => {
         const { data } = await AxiosConfig.get(
             "user/getallservices"
         );
@@ -35,7 +35,8 @@ function Dashboard(props) {
             navigate("/signin");
         })
 
-        fetchServices(data.UserId)
+        fetchServices()
+
     }, [])
 
     let Available = 0;
@@ -48,6 +49,7 @@ function Dashboard(props) {
             NotAvailable++;
         }
     })
+
 
     const availabilityData = {
         labels: ["Not Available", "Available"],
