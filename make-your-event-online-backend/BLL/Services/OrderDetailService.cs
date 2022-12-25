@@ -107,5 +107,18 @@ namespace BLL.Services
             return null;
         }
 
+        public static List<OrderDetailDTO> GetByOrganizer(int Id)
+        {
+            var DetailListDB = OrderDetailService.Get();
+            var ServiceDB = ServiceServices.GetAllByUser(Id);
+
+            var DetailList = (from service in ServiceDB
+                              from detail in DetailListDB
+                              where detail.ServiceId == service.Id
+                              select detail).ToList();  
+            if(DetailList.Count> 0) return DetailList;
+            return null;
+        }
+
     }
 }

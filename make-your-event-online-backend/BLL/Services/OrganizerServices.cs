@@ -6,6 +6,8 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -402,6 +404,49 @@ namespace BLL.Services
             var details = OrderDetailService.SingleService(id);
             if (details.Count > 0) return details;
             return null;
+        }
+
+        public static object GetLastMonthDetail(int id)
+        {
+            var DetailDb = OrderDetailService.GetByOrganizer(id);
+            if (DetailDb == null) return null;
+            var OrderDb = OrderServices.Get();
+            if (OrderDb == null) return null;
+            var cutOff = System.DateTime.Now.AddDays(-30);
+            OrderDb.RemoveAll(x => x.OrderDate < cutOff);
+            if(OrderDb == null) return null;
+
+            var Orders = (from det in DetailDb
+                          from od in OrderDb
+                          where od.Id == det.OrderId
+                          select od).ToList();
+            if(Orders.Count <= 0) return null;
+
+            var Details = (from od in OrderDb
+                           from Det in DetailDb
+                           where Det.OrderId == od.Id
+                           select Det).ToList();
+
+            List<DetailReportDTO> ReturnObj = new List<DetailReportDTO>();
+
+            for (DateTime currDate = DateTime.Now; currDate < cutOff; currDate.AddDays(-1))
+            {
+                var order = (from o in Orders
+                             where DbFunctions.TruncateTime(o.OrderDate) == DbFunctions.TruncateTime(currDate)
+                             select o).ToList();
+                var detCount = (from o in Orders
+                                from det in Details
+                                where det.OrderId == o.Id
+                                select det).ToList().Count();
+
+                ReturnObj.Add(new DetailReportDTO()
+                {
+                    OrderDate = currDate,
+                    OrderCount= detCount
+                });
+            }
+            return ReturnObj;
+
         }
     }
 }

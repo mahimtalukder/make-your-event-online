@@ -326,6 +326,23 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+        [Route("api/organizer/thirtydaysreport/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage ThirtyDaysReport(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.GetLastMonthDetail(Id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+
     }
 }
 
