@@ -42,5 +42,22 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+        [Route("api/user/getCategory/{id}")]
+        [HttpGet]
+        public HttpResponseMessage GetCategory(int id)
+        {
+            try
+            {
+                var data = CategoryServices.GetByService(id);
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+
+
     }
 }

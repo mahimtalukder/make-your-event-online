@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
 
 namespace BLL.Services
 {
@@ -71,6 +72,16 @@ namespace BLL.Services
             });
             var mapper = new Mapper(cfg);
             return mapper.Map<CategoryWithServiceDTO>(data);
+        }
+
+        public static CategoryDTO GetByService(int id)
+        {
+            var serviceDb = ServiceServices.Get(id);
+            var categories = CategoryServices.Get();
+            var cat = (from c in categories
+                       where c.Id == serviceDb.CategoryId
+                       select c).FirstOrDefault();
+            return cat;
         }
     }
 }
