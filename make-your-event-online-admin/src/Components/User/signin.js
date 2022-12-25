@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
-import axiosConfig from "../axiosConfig"
 import { Link } from "react-router-dom"
 
 
@@ -11,8 +10,6 @@ const SignIn = () => {
     const [dberror, setDberror] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    let message = "";
-
     //Final submit function
 
     const handleSubmit = (event) => {
@@ -61,8 +58,8 @@ const SignIn = () => {
                                             <form className="forms-sample" onSubmit={handleSubmit}>
                                                 {/* {{ csrf_field() }} */}
                                                 <div className="mb-3">
-                                                    <label for="id" className="form-label">ID</label>
-                                                    <input type="text" className="form-control" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+                                                    <label for="id" className="form-label">Username</label>
+                                                    <input type="text" className="form-control" id="username" name="username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
                                                 </div>
                                                 <div className="mb-3">
                                                     <label for="password" className="form-label">Password</label>

@@ -1,55 +1,64 @@
 import { React, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
-import AxiosConfig from "../axiosConfig";
+import { useNavigate, useLocation } from "react-router-dom"
+import axios from "axios";
+
 
 import Sidebar from "../Inc/OrganizerSidebar"
 import Topbar from "../Inc/OrganizerTopbar"
 import Footer from "../Inc/Footer";
+import Dashboard from "../Organizer/Dashboard";
+import Profile from "../Organizer/ViewProfile";
+
 
 function OrganizerLayouts(props) {
+    const location = useLocation()
     const navigate = useNavigate()
 
+    let data = JSON.parse(localStorage.getItem('user'))
+    console.log(data)
     useEffect(() => {
-        if (props.path == "dashboard") {
-            AxiosConfig.get("admin/dashboard")
-                .then((resp) => {
-                    console.log(resp.data);
-                })
-                .catch((err) => {
-                    navigate("/signin");
-                    console.log(err);
-                })
-        }
+        const AxiosConfig = axios.create({
+            baseURL: 'https://localhost:44335/api',
+            headers: {
+                Authorization: data.LoginToken,
+                Username: data.UserId
+            }
+        });
+
+        var url = 'organizer/get/' + data.UserId
+        AxiosConfig.get(url).then(res => {
+        }).catch(err => {
+            console.log(err)
+            navigate("/signin");
+        })
     }, [])
 
+
     const component = () => {
-        if (props.path == "dashboard") {
+        console.log(location)
+        if (location.pathname == "/organizer/dashboard") {
             return <Dashboard />;
+        }
+        else if (location.pathname == "/organizer/profile") {
+            return <Profile />;
         }
     }
 
     return (
-        <div class="wrapper">
-
-            {/* LEFT MAIN SIDEBAR */}
+        <div class="main-wrapper">
             <Sidebar />
 
-            {/*  PAGE WRAPPER */}
-            <div class="ec-page-wrapper">
-
-                {/* Header */}
+            <div class="page-wrapper">
                 <Topbar />
 
-                {/* CONTENT WRAPPER */}
-                <div class="ec-content-wrapper">
+                <div class="page-content">
                     {component()}
-                </div> {/* End Content Wrapper */}
+                </div>
 
-                {/* Footer */}
                 <Footer />
-
-            </div> {/* End Page Wrapper */}
+            </div>
         </div>
+
     )
 
 }

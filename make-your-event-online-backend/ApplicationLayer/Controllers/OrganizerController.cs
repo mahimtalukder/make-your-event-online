@@ -3,9 +3,11 @@ using BLL.DTOs;
 using BLL.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -98,12 +100,42 @@ namespace ApplicationLayer.Controllers
         [Route("api/organizer/addservice")]
         [HttpPost]
         [OrganizationLogin]
-        public HttpResponseMessage AddService(ServiceDTO obj)
+        public HttpResponseMessage AddService(ServiceDTO obj, HttpPostedFileBase Image)
         {
             try
             {
-                var data = ServiceServices.Add(obj);
-                return Request.CreateResponse(HttpStatusCode.OK, data);
+                if (ModelState.IsValid)
+                {
+                    if (Image != null)
+                    {
+                        var data = ServiceServices.Add(obj);
+
+
+
+
+                        var path = System.Web.Hosting.HostingEnvironment.MapPath("~/Images/");
+                        if (!Directory.Exists(path))
+                        {
+                            Directory.CreateDirectory(path);
+                        }
+
+                        Image.SaveAs(path + Path.GetFileName(Image.FileName));
+                        var db_path = "https://localhost:44335/Images/" + Image.FileName;
+
+                        var catalog = new ServiceCatalogDTO()
+                        {
+                            ServiceId = data.Id,
+                            Source = db_path,
+                            IsThumbnail= true,
+                            
+                        };
+
+                        return Request.CreateResponse(HttpStatusCode.OK, data);
+
+                    }
+                }
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Error");
+
             }
             catch (Exception ex)
             {
@@ -134,6 +166,7 @@ namespace ApplicationLayer.Controllers
         {
             try
             {
+
                 var data = ServiceServices.Update(obj);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }

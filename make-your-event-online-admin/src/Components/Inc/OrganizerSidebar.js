@@ -19,10 +19,10 @@ const OrganizerSidebar = () => {
                     <ul className="nav">
                         <li className="nav-item nav-category">Main</li>
                         <li className="nav-item">
-                            <a href="{{ route('adminDash') }}" className="nav-link">
+                            <Link to="/organizer/dashboard" className="nav-link">
                                 <i className="link-icon" data-feather="box"></i>
                                 <span className="link-title">Dashboard</span>
-                            </a>
+                            </Link>
                         </li>
                         <li className="nav-item nav-category">Personal</li>
                         <li className="nav-item">
@@ -48,9 +48,9 @@ const OrganizerSidebar = () => {
             </nav>
             <nav className="sidebar">
                 <div className="sidebar-header">
-                    <a href="{{ route('adminDash') }}" className="sidebar-brand">
+                    <Link to="/organizer/dashboard" className="sidebar-brand">
                         CM<span>WP</span>
-                    </a>
+                    </Link>
                     <div className="sidebar-toggler not-active">
                         <span></span>
                         <span></span>
@@ -61,14 +61,14 @@ const OrganizerSidebar = () => {
                     <ul className="nav">
                         <li className="nav-item nav-category">Main</li>
                         <li className="nav-item">
-                            <Link to="/admin/dashboard" className="nav-link">
+                            <Link to="/organizer/dashboard" className="nav-link">
                                 <i className="link-icon" data-feather="box"></i>
                                 <span className="link-title">Dashboard</span>
                             </Link>
                         </li>
                         <li className="nav-item nav-category">Personal</li>
                         <li className="nav-item">
-                            <Link to="/admin/profile" className="nav-link">
+                            <Link to="/organizer/profile" className="nav-link">
                                 <i className="link-icon" data-feather="user"></i>
                                 <span className="link-title">View Profile</span>
                             </Link>

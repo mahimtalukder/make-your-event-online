@@ -80,16 +80,16 @@ const OrganizerTopbar = () => {
                                 </div>
                                 <ul className="list-unstyled p-1">
                                     <li className="dropdown-item py-2">
-                                        <a href="{{route('adminProfile')}}" className="text-body ms-0">
+                                        <Link to="/organizer/profile" className="text-body ms-0">
                                             <i className="me-2 icon-md" data-feather="user"></i>
                                             <span>Profile</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="dropdown-item py-2">
-                                        <a href="{{route('adminEditProfile')}}" className="text-body ms-0">
+                                        <Link to="/organizer/profile" className="text-body ms-0">
                                             <i className="me-2 icon-md" data-feather="edit"></i>
                                             <span>Edit Profile</span>
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="dropdown-item py-2">
                                         <Link classNameName="text-body ms-0" to="/logout">
