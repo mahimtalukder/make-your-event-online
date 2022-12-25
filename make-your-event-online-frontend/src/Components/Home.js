@@ -37,6 +37,26 @@ const Home = () => {
         return link
     }
 
+    const addToCart = (serviceId) => {
+        var url = 'user/getthumbnail/' + serviceId
+        AxiosConfig.get(url).then(res => {
+
+            let data = JSON.parse(localStorage.getItem('cart'))
+            if (data !== undefined) {
+                data.push = res.data
+                localStorage.setItem('cart', JSON.stringify(data));
+            } else {
+                var newData = [res.data]
+                localStorage.setItem('cart', JSON.stringify(newData));
+            }
+        }).catch(err => {
+            console.log(err)
+            // navigate("/signin");
+        })
+
+        return link
+    }
+
 
 
     return (
