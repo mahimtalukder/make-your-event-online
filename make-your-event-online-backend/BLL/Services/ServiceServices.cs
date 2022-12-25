@@ -29,7 +29,6 @@ namespace BLL.Services
             data.RemoveAll(x => x.Availability != 1);
             if (data.Count > 0) return data;
             return null;
-
         }
 
         public static ServiceDTO Get(int id)
