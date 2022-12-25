@@ -18,7 +18,7 @@ namespace BLL.DTOs
         [Required]
         public double PricePerUnit { get; set; }
         [Required]
-        public DateTime TentativeDeliveryDate { get; set; }
+        public int TentativeDeliveryDate { get; set; }
         public int ThumbnailId { get; set; }
         [Required]
         public int Availability { get; set; }
@@ -26,12 +26,5 @@ namespace BLL.DTOs
         public int OrganizerId { get; set; }
         [Required]
         public int CategoryId { get; set; }
-
-        public virtual List<ServiceCatalog> ServiceCatalogs { get; set; }
-
-        public ServiceDTO() 
-        {
-            ServiceCatalogs = new List<ServiceCatalog>();
-        }
     }
 }

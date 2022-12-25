@@ -35,7 +35,7 @@ namespace ApplicationLayer.Auth
                 }
                 else
                 {
-                    var validUser = UserServices.GetByUsername(tokenkUser);
+                    var validUser = UserServices.Get(Int16.Parse(tokenkUser));
                     if (validUser == null || validUser.Id != user.Id)
                     {
                         actionContext.Response = actionContext.Request.CreateResponse(System.Net.HttpStatusCode.Unauthorized, "You are not the correct user!");

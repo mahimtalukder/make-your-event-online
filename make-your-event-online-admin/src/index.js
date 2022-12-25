@@ -32,6 +32,11 @@ const router = createBrowserRouter(
       path: "/organizer/profile",
       element: <OrganizerLayout />,
 
+    },
+    {
+      path: "/organizer/addService",
+      element: <OrganizerLayout />,
+
     }
   ]);
 
