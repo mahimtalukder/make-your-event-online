@@ -23,6 +23,17 @@ namespace BLL.Services
             return mapper.Map<List<ServiceDTO>>(data);
         }
 
+        public static List<ServiceDTO> GetAvailableService()
+        {
+            var data = DataAccessFactory.ServiceDataAccess().Get();
+
+            var config = new MapperConfiguration(c => {
+                c.CreateMap<Service, ServiceDTO>();
+            });
+            var mapper = new Mapper(config);
+            return mapper.Map<List<ServiceDTO>>(data);
+        }
+
         public static ServiceDTO Get(int id)
         {
             var data = DataAccessFactory.ServiceDataAccess().Get(id);

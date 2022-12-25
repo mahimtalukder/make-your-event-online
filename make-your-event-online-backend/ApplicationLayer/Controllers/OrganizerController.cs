@@ -1,7 +1,6 @@
 ﻿using ApplicationLayer.Auth;
 using BLL.DTOs;
 using BLL.Services;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
