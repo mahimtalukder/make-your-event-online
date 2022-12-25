@@ -6,9 +6,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace ApplicationLayer.Controllers
 {
+    [EnableCors("*", "*", "*")]
     public class AuthController : ApiController
     {
         [Route("api/login")]
@@ -38,7 +40,7 @@ namespace ApplicationLayer.Controllers
         }
 
         [Route("api/logout")]
-        [HttpGet]
+        [HttpPost]
         public HttpResponseMessage Logout()
         {
             var token = Request.Headers.Authorization.ToString();

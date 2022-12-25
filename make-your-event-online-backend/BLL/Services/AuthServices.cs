@@ -59,6 +59,7 @@ namespace BLL.Services
 
                 var tk = new Token();
                 tk.UserId = user.Id;
+                tk.UserType= user.UserType;
                 tk.CreatedDate = DateTime.Now;
                 tk.ExpDate = null;
                 tk.LoginToken = Guid.NewGuid().ToString();
