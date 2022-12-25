@@ -73,5 +73,21 @@ namespace ApplicationLayer.Controllers
         }
 
 
+        [Route("api/user/GetAvailableServices")]
+        [HttpGet]
+        public HttpResponseMessage GetAvailableServices()
+        {
+            try
+            {
+                var data = ServiceServices.GetAvailableService();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+
     }
 }

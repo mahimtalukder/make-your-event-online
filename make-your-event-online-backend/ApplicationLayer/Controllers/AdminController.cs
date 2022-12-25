@@ -209,15 +209,12 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
-        /*
-        [Route("api/Admin/userResetPassword/{id}")]
+
+        [Route("api/Admin/report")]
         [HttpGet]
         public HttpResponseMessage PrintOrders()
         {
-            string fileName = "test.pdf";
 
-            Document doc = new Document(PageSize.A4,2,2,2,2);
-            Paragraph paragraph = new Paragraph("Orders");
 
             
 
@@ -234,8 +231,6 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
-        */
-
 
     }
 

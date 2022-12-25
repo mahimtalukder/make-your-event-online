@@ -27,6 +27,13 @@ const SignIn = () => {
                     }, 500);
                     navigate("/organizer/dashboard");
                 }
+                else if (data.UserType == "Admin") {
+                    localStorage.setItem('user', JSON.stringify(data));
+                    setTimeout(() => {
+                        window.location.reload(false);
+                    }, 500);
+                    navigate("/admin/dashboard");
+                }
             }).catch(err => {
                 setDberror("Invalid Input");
                 console.log(err);

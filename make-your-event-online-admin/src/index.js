@@ -1,11 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+
 import reportWebVitals from './reportWebVitals'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import OrganizerLayout from './Components/Layouts/OrganizerLayout'
 import Home from './Components/home'
 import SignIn from './Components/User/signin'
 import Logout from './Components/User/Logout'
+import AdminLayout from "./Components/Layouts/AdminLayout"
 
 
 const router = createBrowserRouter(
@@ -41,6 +43,11 @@ const router = createBrowserRouter(
     {
       path: "/organizer/services",
       element: <OrganizerLayout />,
+
+    },
+    {
+      path: "/admin/dashboard",
+      element: <AdminLayout />,
 
     }
   ]);
