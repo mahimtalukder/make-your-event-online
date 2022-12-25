@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    internal class OrderServices
+    public class OrderServices
     {
         public static List<OrderDTO> Get()
         {
