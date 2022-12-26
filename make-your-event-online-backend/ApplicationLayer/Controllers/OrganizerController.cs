@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -316,8 +317,40 @@ namespace ApplicationLayer.Controllers
         {
             try
             {
-                var data = 1;
-                //var data = OrganizerServices.GenerateReport(Id);
+
+                HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                var content = OrganizerServices.GenerateReport(Id);
+
+                MemoryStream stream = new MemoryStream(content);
+                
+                stream.Position = 0;
+
+                if (stream == null)
+                    return Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+
+                result.Content = new StreamContent(stream);
+                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                result.Content.Headers.ContentDisposition.FileName = "Report.pdf";
+                result.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+                result.Content.Headers.ContentLength = stream.Length;
+
+                return result;
+
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/organizer/thirtydaysreport/{id}")]
+        [HttpGet]
+        [OrganizationLogin]
+        public HttpResponseMessage ThirtyDaysReport(int Id)
+        {
+            try
+            {
+                var data = OrganizerServices.GetLastMonthDetail(Id);
                 return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
@@ -325,6 +358,7 @@ namespace ApplicationLayer.Controllers
                 return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
             }
         }
+
 
     }
 }

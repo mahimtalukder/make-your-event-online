@@ -109,10 +109,9 @@ namespace ApplicationLayer.Controllers
         {
             try
             {
-                var data = CustomerServices.Get();
-                var data2 = data.LastOrDefault();
-                var data3 = data2.Id;
-                return Request.CreateResponse(HttpStatusCode.OK, data3);
+                var data = CustomerServices.Getlast();
+
+                return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
@@ -225,6 +224,39 @@ namespace ApplicationLayer.Controllers
 
                 return null;
 
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+
+        [Route("api/Admin/getOrganization")]
+        [HttpGet]
+        [AdminLogin]
+        public HttpResponseMessage Getorga()
+        {
+            try
+            {
+                var data = OrganizerServices.Get();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
+        [Route("api/Admin/getuser")]
+        [HttpGet]
+        [AdminLogin]
+        public HttpResponseMessage Getuser()
+        {
+            try
+            {
+                var data = UserServices.Get();
+                return Request.CreateResponse(HttpStatusCode.OK, data);
             }
             catch (Exception ex)
             {
