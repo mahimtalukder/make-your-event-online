@@ -103,9 +103,9 @@ const OrganizerSidebar = () => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link to="/organizer/services" className="nav-link">
+                            <Link to="/Admin/customerlist" className="nav-link">
                                 <i className="link-icon" data-feather="box"></i>
-                                <span className="link-title">Services List</span>
+                                <span className="link-title">Customer List</span>
                             </Link>
                         </li>
                     </ul>
