@@ -7,6 +7,8 @@ import Sidebar from "../Inc/AdminSidebar"
 import Topbar from "../Inc/AdminTopbar"
 import Footer from "../Inc/Footer";
 import Dashboard from "../Admin/Dashboard";
+import CustomerList from "../Admin/CustomerList"
+import ViewProfile from "../Admin/ViewProfile"
 
 
 
@@ -36,6 +38,12 @@ function OrganizerLayouts(props) {
     const component = () => {
         if (location.pathname == "/admin/dashboard") {
             return <Dashboard />;
+        } else if (location.pathname == "/Admin/customerlist") {
+            return <CustomerList />
+
+        } else if (location.pathname == "/admin/profile") {
+            return <ViewProfile />
+
         }
     }
 

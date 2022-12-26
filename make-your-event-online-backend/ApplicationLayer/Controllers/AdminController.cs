@@ -209,6 +209,59 @@ namespace ApplicationLayer.Controllers
             }
         }
 
+
+        [Route("api/Admin/organizerResetPassword/{id}")]
+        [HttpGet]
+        [AdminLogin]
+        public HttpResponseMessage OrgResetPassword(int Id)
+        {
+            try
+            {
+                Random rand = new Random();
+
+                // Choosing the size of string
+                // Using Next() string
+                int stringlen = rand.Next(4, 10);
+                int randValue;
+                string str = "";
+                char letter;
+                for (int i = 0; i < stringlen; i++)
+                {
+
+                    // Generating a random number.
+                    randValue = rand.Next(0, 26);
+
+                    // Generating random character by converting
+                    // the random number into character.
+                    letter = Convert.ToChar(randValue + 65);
+
+                    // Appending the letter to string.
+                    str = str + letter;
+                }
+
+                var user = UserServices.Get(Id);
+                var user2 = OrganizerServices.Get();
+                user.Password = str;
+                var data = UserServices.Update(user);
+
+                var mail = new MailDataDTO()
+                {
+                    Name = user.Username,
+                    Subject = "Reset Password",
+                    Body = @"Your new password is: " + str,
+                };
+
+                SendMail.Mail(mail);
+
+
+                return Request.CreateResponse(HttpStatusCode.OK, "Mail sended");
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateResponse(HttpStatusCode.BadRequest, ex.Message);
+            }
+        }
+
         [Route("api/Admin/report")]
         [HttpGet]
         public HttpResponseMessage PrintOrders()
