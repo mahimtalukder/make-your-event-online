@@ -70,7 +70,7 @@ namespace BLL.Services
             return null;
         }
 
-        public static object CustomerOrderDetail(int Id)
+        public static CustomerOrderDTO CustomerOrderDetail(int Id)
         {
             var Order = OrderServices.Get(Id);
             var DetailList = OrderDetailService.GetByOrder(Id);

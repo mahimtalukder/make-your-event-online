@@ -243,7 +243,7 @@ namespace BLL.Services
             var det = (from s in services
                        where s.OrganizerId == id
                        from d in details
-                       where d.ServiceId == s.Id && d.Status == 2
+                       where d.ServiceId == s.Id && d.Status == 4
                        select d).ToList();
             if (det.Count > 0)
             {
@@ -342,7 +342,7 @@ namespace BLL.Services
                 PdfWriter writer = PdfWriter.GetInstance(report, ms);
                 report.Open();
 
-                Paragraph title = new Paragraph("Organize Your Event Online", new Font(FontFamily.TIMES_ROMAN, 24, Font.BOLD, BaseColor.BLACK));
+                Paragraph title = new Paragraph("Organize Your Event Online", new Font(FontFamily.TIMES_ROMAN, 32, Font.BOLD, BaseColor.BLACK));
                 title.SpacingAfter = 20;
                 title.Alignment = Element.ALIGN_CENTER;
                 report.Add(title);
@@ -355,11 +355,11 @@ namespace BLL.Services
                 nameCell.VerticalAlignment = Element.ALIGN_CENTER;
                 UserInfo.AddCell(nameCell);
 
-                PdfPCell dateCell = new PdfPCell(new Phrase("Date: " + DateTime.Now.Date.ToString(), new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
-                dateCell.Border = Rectangle.NO_BORDER;
-                dateCell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                dateCell.VerticalAlignment = Element.ALIGN_CENTER;
-                UserInfo.AddCell(dateCell);
+                PdfPCell BlankCell = new PdfPCell(new Phrase("\u00a0"));
+                BlankCell.Border = Rectangle.NO_BORDER;
+                BlankCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                BlankCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(BlankCell);
 
                 PdfPCell EmailCell = new PdfPCell(new Phrase("Email: " + organizer.Email, new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
                 EmailCell.Border = Rectangle.NO_BORDER;
@@ -367,18 +367,21 @@ namespace BLL.Services
                 EmailCell.VerticalAlignment = Element.ALIGN_CENTER;
                 UserInfo.AddCell(EmailCell);
 
-                PdfPCell BlankCell = new PdfPCell(new Phrase("\u00a0"));
-                BlankCell.Border = Rectangle.NO_BORDER;
-                BlankCell.HorizontalAlignment = Element.ALIGN_RIGHT;
-                BlankCell.VerticalAlignment = Element.ALIGN_CENTER;
                 UserInfo.AddCell(BlankCell);
 
                 PdfPCell PhoneCell = new PdfPCell(new Phrase("Phone: " + organizer.Phone, new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
-                EmailCell.Border = Rectangle.NO_BORDER;
-                EmailCell.HorizontalAlignment = Element.ALIGN_LEFT;
-                EmailCell.VerticalAlignment = Element.ALIGN_CENTER;
-                UserInfo.AddCell(EmailCell);
-                UserInfo.AddCell(BlankCell);
+                PhoneCell.Border = Rectangle.NO_BORDER;
+                PhoneCell.HorizontalAlignment = Element.ALIGN_LEFT;
+                PhoneCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(PhoneCell);
+
+                PdfPCell dateCell = new PdfPCell(new Phrase("Date: " + DateTime.Now.Date.ToString(), new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                dateCell.Border = Rectangle.NO_BORDER;
+                dateCell.HorizontalAlignment = Element.ALIGN_RIGHT;
+                dateCell.VerticalAlignment = Element.ALIGN_CENTER;
+                UserInfo.AddCell(dateCell);
+
+
                 UserInfo.SpacingAfter = 10;
                 report.Add(UserInfo);
 
@@ -433,12 +436,12 @@ namespace BLL.Services
                 {
                     var da = (from o in orders
                               where o.Id == item.OrderId
-                              select o.OrderDate).SingleOrDefault();
+                              select o.OrderDate.Date.ToShortDateString()).SingleOrDefault();
                     var serviceName = ServiceServices.Get(item.ServiceId).Name.ToString();
 
                     PdfPCell cell1 = new PdfPCell(new Phrase(s.ToString()));
                     PdfPCell cell2 = new PdfPCell(new Phrase(serviceName));
-                    PdfPCell cell3 = new PdfPCell(new Phrase(da.Date.ToString()));
+                    PdfPCell cell3 = new PdfPCell(new Phrase(da));
                     PdfPCell cell4 = new PdfPCell(new Phrase(item.Price.ToString()));
 
                     cell1.HorizontalAlignment = Element.ALIGN_CENTER;
@@ -507,21 +510,27 @@ namespace BLL.Services
 
             List<DetailReportDTO> ReturnObj = new List<DetailReportDTO>();
 
-            for (DateTime currDate = DateTime.Now; currDate < cutOff; currDate.AddDays(-1))
+            for (DateTime currDate = DateTime.Now; currDate >= cutOff; )
             {
+                int detCount = 0;
                 var order = (from o in Orders
-                             where DbFunctions.TruncateTime(o.OrderDate) == DbFunctions.TruncateTime(currDate)
+                             where o.OrderDate.Date.ToShortDateString().Equals(currDate.Date.ToShortDateString())
                              select o).ToList();
-                var detCount = (from o in Orders
-                                from det in Details
-                                where det.OrderId == o.Id
-                                select det).ToList().Count();
-
+                if (order.Count>0)
+                {
+                    detCount = (from o in Orders
+                                    from det in Details
+                                    where det.OrderId == o.Id
+                                    select det).ToList().Count();
+                }
+                
                 ReturnObj.Add(new DetailReportDTO()
                 {
                     OrderDate = currDate,
                     OrderCount= detCount
                 });
+                order = null;
+                currDate = currDate.AddDays(-1);
             }
             return ReturnObj;
 
