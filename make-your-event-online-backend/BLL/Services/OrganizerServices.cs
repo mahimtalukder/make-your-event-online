@@ -8,11 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.util;
+using System.Web.UI.WebControls;
 using static iTextSharp.text.Font;
 
 namespace BLL.Services
@@ -313,8 +316,7 @@ namespace BLL.Services
             }
             return null;
         }
-        /*
-        public static object GenerateReport(int id) // id = organizer id
+        public static byte[] GenerateReport(int id) // id = organizer id
         {
             var organizer = OrganizerServices.Get(id);
             var services = ServiceServices.GetAllByUser(id);
@@ -342,6 +344,7 @@ namespace BLL.Services
 
                 Paragraph title = new Paragraph("Organize Your Event Online", new Font(FontFamily.TIMES_ROMAN, 24, Font.BOLD, BaseColor.BLACK));
                 title.SpacingAfter = 20;
+                title.Alignment = Element.ALIGN_CENTER;
                 report.Add(title);
 
                 PdfPTable UserInfo = new PdfPTable(2);
@@ -370,24 +373,99 @@ namespace BLL.Services
                 BlankCell.VerticalAlignment = Element.ALIGN_CENTER;
                 UserInfo.AddCell(BlankCell);
 
-                PdfPCell PhoneCell = new PdfPCell(new Phrase("Email: " + organizer.Phone, new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                PdfPCell PhoneCell = new PdfPCell(new Phrase("Phone: " + organizer.Phone, new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
                 EmailCell.Border = Rectangle.NO_BORDER;
                 EmailCell.HorizontalAlignment = Element.ALIGN_LEFT;
                 EmailCell.VerticalAlignment = Element.ALIGN_CENTER;
                 UserInfo.AddCell(EmailCell);
-
                 UserInfo.AddCell(BlankCell);
+                UserInfo.SpacingAfter = 10;
                 report.Add(UserInfo);
 
                 PdfPTable DetailInfo = new PdfPTable(4);
+
                 PdfPCell Serial = new PdfPCell(new Phrase("Serial", new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
-                Serial.BackgroundColor = BaseColor.
-                UserInfo.AddCell(Serial);
+                Serial.BackgroundColor = BaseColor.CYAN;
+                Serial.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER | Rectangle.LEFT_BORDER | Rectangle.RIGHT_BORDER;
+                Serial.BorderWidthBottom = 1f;
+                Serial.BorderWidthTop = 1f;
+                Serial.BorderWidthLeft = 1f;
+                Serial.BorderWidthRight = 1f;
+                Serial.HorizontalAlignment = Element.ALIGN_CENTER;
+                Serial.VerticalAlignment = Element.ALIGN_CENTER;
+                DetailInfo.AddCell(Serial);
+
+                PdfPCell ServiceTitle = new PdfPCell(new Phrase("Service Title", new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                ServiceTitle.BackgroundColor = BaseColor.CYAN;
+                ServiceTitle.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER | Rectangle.LEFT_BORDER | Rectangle.RIGHT_BORDER;
+                ServiceTitle.BorderWidthBottom = 1f;
+                ServiceTitle.BorderWidthTop = 1f;
+                ServiceTitle.BorderWidthLeft = 1f;
+                ServiceTitle.BorderWidthRight = 1f;
+                ServiceTitle.HorizontalAlignment = Element.ALIGN_CENTER;
+                ServiceTitle.VerticalAlignment = Element.ALIGN_CENTER;
+                DetailInfo.AddCell(ServiceTitle);
+
+                PdfPCell OrderDate = new PdfPCell(new Phrase("Order Date", new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                OrderDate.BackgroundColor = BaseColor.CYAN;
+                OrderDate.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER | Rectangle.LEFT_BORDER | Rectangle.RIGHT_BORDER;
+                OrderDate.BorderWidthBottom = 1f;
+                OrderDate.BorderWidthTop = 1f;
+                OrderDate.BorderWidthLeft = 1f;
+                OrderDate.BorderWidthRight = 1f;
+                OrderDate.HorizontalAlignment = Element.ALIGN_CENTER;
+                OrderDate.VerticalAlignment = Element.ALIGN_CENTER;
+                DetailInfo.AddCell(OrderDate);
+
+                PdfPCell Price = new PdfPCell(new Phrase("Price", new Font(FontFamily.TIMES_ROMAN, 12, Font.NORMAL, BaseColor.BLACK)));
+                Price.BackgroundColor = BaseColor.CYAN;
+                Price.Border = Rectangle.BOTTOM_BORDER | Rectangle.TOP_BORDER | Rectangle.LEFT_BORDER | Rectangle.RIGHT_BORDER;
+                Price.BorderWidthBottom = 1f;
+                Price.BorderWidthTop = 1f;
+                Price.BorderWidthLeft = 1f;
+                Price.BorderWidthRight = 1f;
+                Price.HorizontalAlignment = Element.ALIGN_CENTER;
+                Price.VerticalAlignment = Element.ALIGN_CENTER;
+                DetailInfo.AddCell(Price);
+
+                int s = 1;
+                foreach(var item in details)
+                {
+                    var da = (from o in orders
+                              where o.Id == item.OrderId
+                              select o.OrderDate).SingleOrDefault();
+                    var serviceName = ServiceServices.Get(item.ServiceId).Name.ToString();
+
+                    PdfPCell cell1 = new PdfPCell(new Phrase(s.ToString()));
+                    PdfPCell cell2 = new PdfPCell(new Phrase(serviceName));
+                    PdfPCell cell3 = new PdfPCell(new Phrase(da.Date.ToString()));
+                    PdfPCell cell4 = new PdfPCell(new Phrase(item.Price.ToString()));
+
+                    cell1.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell2.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell3.HorizontalAlignment = Element.ALIGN_CENTER;
+                    cell4.HorizontalAlignment = Element.ALIGN_CENTER;
+                    DetailInfo.AddCell(cell1);
+                    DetailInfo.AddCell(cell2);
+                    DetailInfo.AddCell(cell3);
+                    DetailInfo.AddCell(cell4);
+                    s++;
+                }
+
+                report.Add(DetailInfo);
+                report.Close();
+
+
+
+                writer.Close();
+                byte[] content = ms.ToArray();
+                return content;
+
 
 
             }
 
-        }*/
+        }
 
         public static int TotalServiceOrders(int id)
         {

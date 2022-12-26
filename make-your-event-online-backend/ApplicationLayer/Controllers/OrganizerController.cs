@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -316,9 +317,25 @@ namespace ApplicationLayer.Controllers
         {
             try
             {
-                var data = 1;
-                //var data = OrganizerServices.GenerateReport(Id);
-                return Request.CreateResponse(HttpStatusCode.OK, data);
+
+                HttpResponseMessage result = new HttpResponseMessage(System.Net.HttpStatusCode.OK);
+                var content = OrganizerServices.GenerateReport(Id);
+
+                MemoryStream stream = new MemoryStream(content);
+                
+                stream.Position = 0;
+
+                if (stream == null)
+                    return Request.CreateResponse(System.Net.HttpStatusCode.NotFound);
+
+                result.Content = new StreamContent(stream);
+                result.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
+                result.Content.Headers.ContentDisposition.FileName = "Report.pdf";
+                result.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/pdf");
+                result.Content.Headers.ContentLength = stream.Length;
+
+                return result;
+
             }
             catch (Exception ex)
             {
