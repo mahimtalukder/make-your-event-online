@@ -107,6 +107,10 @@
     <Compile Include="Migrations\202212251440237_servicesTableUpdate2.designer.cs">
       <DependentUpon>202212251440237_servicesTableUpdate2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202212260041187_shipingAreaUpdate.cs" />
+    <Compile Include="Migrations\202212260041187_shipingAreaUpdate.designer.cs">
+      <DependentUpon>202212260041187_shipingAreaUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repo\ActionListRepo.cs" />
@@ -158,6 +162,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202212251440237_servicesTableUpdate2.resx">
       <DependentUpon>202212251440237_servicesTableUpdate2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202212260041187_shipingAreaUpdate.resx">
+      <DependentUpon>202212260041187_shipingAreaUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

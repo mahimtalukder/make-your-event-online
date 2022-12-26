@@ -38,11 +38,11 @@ function OrganizerLayouts(props) {
     const component = () => {
         if (location.pathname == "/admin/dashboard") {
             return <Dashboard />;
-        } else if (location.pathname == "/Admin/CustomerList") {
-            <CustomerList />
+        } else if (location.pathname == "/Admin/customerlist") {
+            return <CustomerList />
 
         } else if (location.pathname == "/admin/profile") {
-            <ViewProfile />
+            return <ViewProfile />
 
         }
     }

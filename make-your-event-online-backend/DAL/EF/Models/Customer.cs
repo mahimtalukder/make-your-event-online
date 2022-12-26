@@ -32,7 +32,7 @@ namespace DAL.EF.Models
         public string Address { get; set; }
         [Required]
         public string ProfilePicture { get; set; }
-        public int ShippingAreaId { get; set; }
+        public int? ShippingAreaId { get; set; }
 
         public virtual User User { get; set; } 
         public virtual List<Order> Orders { get; set; }
