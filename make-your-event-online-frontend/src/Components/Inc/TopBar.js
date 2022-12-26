@@ -11,7 +11,8 @@ const Topbar = () => {
 
     useEffect(() => {
         let data = JSON.parse(localStorage.getItem('cart'))
-        if (data !== undefined) {
+
+        if (data != undefined) {
             setCart(data)
         }
 
@@ -33,6 +34,29 @@ const Topbar = () => {
 
         return link
     }
+
+    const removeFromCart = (serviceId) => {
+        let data = JSON.parse(localStorage.getItem('cart'))
+        let newData = [];
+        let flag = true
+
+        data.forEach(service => {
+            console.log(service)
+            if (service.Id == serviceId && flag) {
+                flag = false
+            }
+            else {
+                newData.push(service)
+            }
+
+            localStorage.setItem("cart", JSON.stringify(newData));
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 500);
+        })
+    }
+
+
     return (
         <header class="header header-2 header-intro-clearance">
             <div class="header-top">
@@ -114,11 +138,11 @@ const Topbar = () => {
                                                     </div>{/* End .product-cart-details */}
 
                                                     <figure class="product-image-container">
-                                                        <a href="product.html" class="product-image">
+                                                        <a href="#" class="product-image">
                                                             <img src={getThambnil(service.Id)} alt="product" />
                                                         </a>
                                                     </figure>
-                                                    <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
+                                                    <button class="btn-remove" title="Remove Product" onClick={e => removeFromCart(service.Id)}><i class="icon-close"></i></button>
                                                 </div>
                                             ))}
                                         </div>{/* End .cart-product */}

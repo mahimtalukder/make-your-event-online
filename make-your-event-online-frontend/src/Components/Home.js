@@ -38,17 +38,15 @@ const Home = () => {
     }
 
     const addToCart = (serviceId) => {
-        var url = 'user/getthumbnail/' + serviceId
+        var url = 'user/getsingleservice/' + serviceId
         AxiosConfig.get(url).then(res => {
 
-            let data = JSON.parse(localStorage.getItem('cart'))
-            if (data !== undefined) {
-                data.push = res.data
-                localStorage.setItem('cart', JSON.stringify(data));
-            } else {
-                var newData = [res.data]
-                localStorage.setItem('cart', JSON.stringify(newData));
-            }
+            var data = JSON.parse(localStorage.getItem("cart") || "[]");
+            data.push(res.data);
+            localStorage.setItem("cart", JSON.stringify(data));
+            setTimeout(() => {
+                window.location.reload(false);
+            }, 500);
         }).catch(err => {
             console.log(err)
             // navigate("/signin");
@@ -89,7 +87,7 @@ const Home = () => {
                                                 </div>{/* End .product-price */}
                                             </div>{/* End .product-body */}
                                             <div class="product-action">
-                                                <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                                <button class="btn-product btn-cart" onClick={e => addToCart(service.Id)}><span>add to cart</span></button>
                                             </div>{/* End .product-action */}
                                         </div>{/* End .product */}
                                     </div>
