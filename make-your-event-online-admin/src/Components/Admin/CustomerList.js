@@ -95,6 +95,7 @@ const CustomerList = () => {
                                             <td>{user.Email}</td>
                                             <td>{user.Phone}</td>
                                             <td>{User.Address}</td>
+                                            <td> <Link to={"/Admin/userResetPassword/"+user.Id } className="btn btn-primary me-1 mb-1">View</Link></td>
                                             <th></th>
                                         </tr>
                                     ))}
