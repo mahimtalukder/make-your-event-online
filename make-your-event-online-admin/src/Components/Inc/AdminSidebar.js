@@ -68,7 +68,7 @@ const OrganizerSidebar = () => {
                         </li>
                         <li className="nav-item nav-category">Personal</li>
                         <li className="nav-item">
-                            <Link to="/organizer/profile" className="nav-link">
+                            <Link to="/Admin/profile" className="nav-link">
                                 <i className="link-icon" data-feather="user"></i>
                                 <span className="link-title">View Profile</span>
                             </Link>

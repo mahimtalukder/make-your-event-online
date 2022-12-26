@@ -1,4 +1,5 @@
 import { React, useEffect, useState } from 'react'
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"
 
 
@@ -13,11 +14,10 @@ const CustomerList = () => {
         }
     });
 
-    let [serviceList, setServiceList] = useState([])
     let [user, setUser] = useState({})
 
     const fatchUser = async () => {
-        var url = 'customer/get/' + userInfo.UserId
+        var url = 'customer/get'
         const { data } = await AxiosConfig.get(
             url
         );
@@ -25,46 +25,11 @@ const CustomerList = () => {
         setUser(userData);
     };
 
-    const fetchServices = async (organizerId) => {
-        const { data } = await AxiosConfig.get(
-            "organizer/getallservice/" + organizerId
-        );
-        const services = data;
-        console.log(data);
-        setServiceList(services);
-    };
-
 
     useEffect(() => {
         fatchUser()
-        fetchServices(userInfo.UserId)
     }, [])
 
-    let [link, setLink] = useState("");
-    const getThambnil = (serviceId) => {
-        var url = 'user/getthumbnail/' + serviceId
-        AxiosConfig.get(url).then(res => {
-            setLink(res.data.Source);
-        }).catch(err => {
-            console.log(err)
-            // navigate("/signin");
-        })
-
-        return link
-    }
-
-    let [ordersCount, setOrdersCount] = useState("");
-    const totalOrder = (serviceId) => {
-        var url = 'organizer/serviceordercount/' + serviceId
-        AxiosConfig.get(url).then(res => {
-            setOrdersCount(res.data)
-        }).catch(err => {
-            console.log(err)
-            // navigate("/signin");
-        })
-
-        return ordersCount
-    }
 
 
     return (
@@ -86,16 +51,13 @@ const CustomerList = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {user.map((user) => (
+                                    {user.map((userData) => (
                                         <tr>
-                                            <td class="py-1">
-                                                <img src={getThambnil(service.Id)} alt="image" />
-                                            </td>
-                                            <td>{user.Name}</td>
-                                            <td>{user.Email}</td>
-                                            <td>{user.Phone}</td>
-                                            <td>{User.Address}</td>
-                                            <td> <Link to={"/Admin/userResetPassword/"+user.Id } className="btn btn-primary me-1 mb-1">View</Link></td>
+                                            <td>{userData.Name}</td>
+                                            <td>{userData.Email}</td>
+                                            <td>{userData.Phone}</td>
+                                            <td>{userData.Address}</td>
+                                            <td> <Link to={"/Admin/userResetPassword/"+userData.Id } className="btn btn-primary me-1 mb-1">View</Link></td>
                                             <th></th>
                                         </tr>
                                     ))}
